@@ -1,0 +1,24 @@
+unilaunchers.net
+
+Idea: Web application where you can store games that can be launched on one big launcher, 
+basically Unifying the launchers, hence the name.
+
+Call of duty can be launched on either steam or other companies launcher.
+
+Give organization and not trying to be a big comunity rather leave that to the launchers but
+have functionality over social aspect.
+
+Keywords: Game - launcher library - organize combine manager. 
+
+Page Idea layout: Small splash header where along the bottom contains games you have stored. Categories
+based on favorites or weather your games dependent launcher.
+Call of duty is both in steam and activision launcher.
+If favorited would place it in 3 places now.
+
+colors:
+main: #090904 smoky black
+secondary: #87F5FB electric blue
+dark: #2D3A3A gunmetal
+white: #FCFFFC baby powder
+
+font style: Segoe UI, Segoe UI Emoji, Segoe UI Symbol
