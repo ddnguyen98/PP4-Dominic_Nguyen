@@ -22,3 +22,9 @@ dark: #2D3A3A gunmetal
 white: #FCFFFC baby powder
 
 font style: Segoe UI, Segoe UI Emoji, Segoe UI Symbol
+
+steam
+origin
+battle.net
+uplay
+epic
