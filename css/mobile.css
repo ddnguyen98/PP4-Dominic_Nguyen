@@ -1,0 +1,17 @@
+
+@media (max-width: 768px) {
+    .dnavbar, .dcontent{
+        display:none;
+        visibility: hidden;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .mnavbar{
+        display :none;
+        visibility: hidden;
+      }
+    .bodybg{
+        background: url('../images/file.png') repeat;
+    }
+  }
