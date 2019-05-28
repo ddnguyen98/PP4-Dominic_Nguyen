@@ -6,7 +6,7 @@
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 767px) {
     .mnavbar{
         display :none;
         visibility: hidden;
@@ -15,3 +15,95 @@
         background: url('../images/file.png') repeat;
     }
   }
+
+  #steam{
+    display: none;
+  }
+  #steam + label{
+    background: url('../images/SVG/steam.svg') no-repeat;
+    padding: 0 0 0 0px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+  }
+
+
+  #origin{
+    display: none;
+  }
+  #origin + label{
+    background: url('../images/SVG/origin.svg') no-repeat;
+    padding: 0 0 0 0px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+  }
+
+  #epic{
+    display: none;
+  }
+  #epic + label{
+    background: url('../images/SVG/epic.svg') no-repeat;
+    padding: 0 0 0 0px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+  }
+
+
+  #battle{
+    display: none;
+  }
+  #battle + label{
+    background: url('../images/SVG/battlenet.svg') no-repeat;
+    padding: 0 0 0 0px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+  }
+
+
+  #uplay{
+    display: none;
+  }
+  #uplay + label{
+    background: url('../images/SVG/uplay.svg') no-repeat;
+    padding: 0 0 0 0px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+  }
+
+  #imgTrue{
+    opacity: 1;
+  }
+  #imgFalse{
+    opacity: 0.5;
+  }
+
+  #mAddItem, #mSearch, #mProfile, #mbutton{
+    border: none;
+    background: none;
+    margin: 10px 0
+  }
+
+  .popUp {
+    z-index: 1;
+    position: fixed; 
+    padding-top: 300px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,.2); 
+  }
+
+  #myModal .container{
+    padding: 10px 0;
+  }
+  
+  .bg-dark{
+    background-color: #2D3A3A!important;
+  }
+

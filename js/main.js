@@ -7,9 +7,7 @@ if(localStorage.getItem('glibrary')){
         addD()
         addM()
     }
-    else{
-        
-    }
+
 }
 else{
     let j = {"list":[]}    
@@ -27,47 +25,46 @@ document.querySelector('#mAddItem').addEventListener('click', e =>{
     addD('form')
 })
 
-function createForm(item,i,type,data) {
-    let html = ''
-    if(!document.querySelector(`#${item}${i}`)){
-        html += `<div id="item${i}">`
-    }
+function createForm(item,i,type,data,edit) {
 
+    let html = ''
+    if(edit){
+        html += `<div id="item${i}" class="m-2 px-3 bg-dark">`
+    }
     html += 
-    `<form class="${item}-4 mx-2 my-2 p-2 bg-dark text-white" >`+
-        `<input type="text" class="form-control" placeholder="${data}" id="name"/>`+
-        '<div class="d-inline-flex">'+
+    `<article class="${item}-4 p-2 bg-dark text-white" >`+
+        `<input type="text" class="form-control" value="${data}" id="name"/>`+
+        '<div class="d-flex justify-content-around  m-0 my-2">'+
             '<div class="form-check form-check-inline">'+
-                '<input class="form-check-input" type="checkbox" id="steam" value="steam">'+
-                '<label class="form-check-label" for="steam"></label>'+
+                '<input type="checkbox" id="steam" value="false">'+
+                '<label class="" for="steam"></label>'+
             '</div>'+
             '<div class="form-check form-check-inline">'+
-                '<input class="form-check-input" type="checkbox" id="origin" value="origin">'+
-                '<label class="form-check-label" for="origin"></label>'+
+                '<input type="checkbox" id="origin" value="false">'+
+                '<label class="" for="origin"></label>'+
             '</div>'+
             '<div class="form-check form-check-inline">'+
-                '<input class="form-check-input" type="checkbox" id="epic" value="epic">'+
-                '<label class="form-check-label" for="epic"></label>'+
+                '<input type="checkbox" id="epic" value="false">'+
+                '<label class="" for="epic"></label>'+
             '</div>'+
             '<div class="form-check form-check-inline">'+
-                '<input class="form-check-input" type="checkbox" id="battle" value="battle">'+
-                '<label class="form-check-label" for="battle"></label>'+
+                '<input type="checkbox" id="battle" value="false">'+
+                '<label class="" for="battle"></label>'+
             '</div>'+
             '<div class="form-check form-check-inline">'+
-                '<input class="form-check-input" type="checkbox" id="uplay" value="uplay">'+
-                '<label class="form-check-label" for="uplay"></label>'+
+                '<input type="checkbox" id="uplay" value="false">'+
+                '<label class="" for="uplay"></label>'+
             '</div>'+
         '</div>'+
-        '<div>'+
+        '<div class="d-flex justify-content-around">'+
             `<input class="btn btn-primary" type="button" value="Delete" id"delete" onclick="delGame('item${i}')">`+
             '<input class="btn btn-primary" type="button" value="Favorite">'+
             `<input class="btn btn-primary" type="button" value="Apply" id="apply" onclick="${type}populate('item${i}')">`+
         '</div>'+
-'</form>'
-
-if(!document.querySelector(`#item${i}`)){
-    html += '</div>'
-}
+'</article>'
+    if(edit){
+        html += '</div>'
+    }
     return html
 }
 
@@ -84,47 +81,101 @@ function edit(idEdit){
     let num = idEdit.slice(4)
     let data = document.querySelector(`#mItems #${idEdit} h2`).innerHTML
 
-    document.querySelector(`#mItems #${idEdit}`).innerHTML = createForm('row', num, 'm', data)
-    document.querySelector(`#dItems #${idEdit}`).innerHTML = createForm('row', num, 'd', data)
+    document.querySelector(`#mItems #${idEdit}`).innerHTML = createForm('row', num, 'm', data, false)
+    document.querySelector(`#dItems #${idEdit}`).innerHTML = createForm('row', num, 'd', data, false)
+
+    document.querySelectorAll(`input[type="checkbox"]`).forEach(e =>{
+        e.addEventListener('change', checkChange)
+    })
+}
+
+function checkChange(e){
+    if(e.target.checked){
+        document.querySelectorAll(`#${e.target.id} + label`).forEach(e =>{e.style.opacity = '1'})
+        document.querySelectorAll(`#${e.target.id}`).forEach(e =>{e.value = 'true'})
+    }
+    else{
+        document.querySelectorAll(`#${e.target.id} + label`).forEach(e =>{e.style.opacity = '0.5'})
+        document.querySelectorAll(`#${e.target.id}`).forEach(e =>{e.value = 'false'})
+    }
 }
 
 function mpopulate(formVal){
     let values = [];
     let num = formVal.slice(4)
-    console.log(glibrary['list'].splice(num, 1))
+    glibrary['list'].splice(num, 1)
     values.push(document.querySelector(`#mItems #${formVal} #name`).value)
+
+    document.querySelectorAll(`#mItems input[type="checkbox"]`).forEach( e =>{
+        values.push(e.value)
+    })
     addM('game', values)
     addD()
-
 }
 
 function dpopulate(formVal){
     let values = [];
-
+    let num = formVal.slice(4)
+    glibrary['list'].splice(num, 1)
     values.push(document.querySelector(`#dItems #${formVal} #name`).value)
+
+    document.querySelectorAll(`#mItems input[type="checkbox"]`).forEach( e =>{
+        values.push(e.value)
+    })
     addD('game', values)
     addM()
 }
 
-function createItem(item, val, i) {     
+function createItem(item, val, i) { 
+    let oppacityVal = []
     let html = ''
-    if(!document.querySelector(`#${item}${i}`)){
-        html += `<div id="item${i}">`
-    }
+    html += `<div id="item${i}" class="m-2 px-3 bg-dark filteri">`
     html += 
-    `<article class="${item}-4 mx-2 my-2 p-2 bg-dark text-white" >`+
-        `<div class="d-flex align-items-center" style="margin-bottom: 10px"><img onclick="edit('item${i}')" src="images/SVG/brandIcon.svg" width="80" height="80" style="margin-right: 5px"><h2>${val['name']}</h2></div>`+
-        '<div class="d-flex justify-content-around" id="launchers">'+
-            '<img src="images/SVG/steam.svg" width="50" height="50" >'+
-            '<img src="images/SVG/epic.svg" width="50" height="50"></img>'+
-            '<img src="images/SVG/battlenet.svg" width="50" height="50">'+
-            '<img src="images/SVG/uplay.svg" width="50" height="50">'+
-            '<img src="images/SVG/origin.svg" width="50" height="50">'+
-    '</div>'+
-    '</article>'
-    if(!document.querySelector(`#${item}${i}`)){
-        html += `</div>`
+    `<article class="${item}-4 py-2 bg-dark text-white" >`+
+        `<div class="d-flex align-items-center" style="margin-bottom: 10px"><img onclick="edit('item${i}')" src="images/SVG/brandIcon.svg" width="70" height="70" style="margin-right: 5px"><h2>${val['name']}</h2></div>`+
+        '<div class="d-flex justify-content-around" id="launchers">'
+    if(val["steam"] == 'true'){
+        html += `<img src="images/SVG/steam.svg" width="40" height="40" id="imgTrue">`      
     }
+    else{
+        html += `<img src="images/SVG/steam.svg" width="40" height="40" id="imgFalse">`      
+
+    }
+
+    if(val["origin"] == 'true'){
+        html += `<img src="images/SVG/origin.svg" width="40" height="40" id="imgTrue">`      
+    }
+    else{
+        html += `<img src="images/SVG/origin.svg" width="40" height="40" id="imgFalse">`      
+
+    }
+    if(val["epic"] == 'true'){
+        html += `<img src="images/SVG/epic.svg" width="40" height="40" id="imgTrue">` 
+    }
+
+    else{
+        html += `<img src="images/SVG/epic.svg" width="40" height="40" id="imgFalse">`
+
+    }
+    if(val["battle"] == 'true'){
+        html += `<img src="images/SVG/battlenet.svg" width="40" height="40" id="imgTrue">`
+    }
+    else{
+        html += `<img src="images/SVG/battlenet.svg" width="40" height="40" id="imgFalse">`
+
+    }
+    if(val["uplay"] == 'true'){
+        html += `<img src="images/SVG/uplay.svg" width="40" height="40" id="imgTrue">`   
+    }
+    else{
+        html += `<img src="images/SVG/uplay.svg" width="40" height="40" id="imgFalse">`
+
+    }
+
+            
+ 
+     html +=   '</div>'+
+     '</article>'+ `</div>`
     return html
 }
 
@@ -133,7 +184,7 @@ function addD(prop, val){
     let counter = -1;
 
     if(prop== 'game'){
-        glibrary['list'].push({"type":"game", "name": val[0]})
+        glibrary['list'].push({"type":"game", "name":val[0], "steam" : val[1], "origin" : val[2], "epic" : val[3], "battle" : val[4], "uplay" : val[5]})
     }
 
     localStorage.setItem('glibrary', JSON.stringify(glibrary))
@@ -148,30 +199,116 @@ function addD(prop, val){
     })
 
     if(prop == 'form'){
-        html += createForm('row', glibrary['list'].length , 'd')
+        html += createForm('row', glibrary['list'].length , 'd','' , true)
     }
 
     document.querySelector('#dItems').innerHTML = html
+    document.querySelectorAll(`input[type="checkbox"]`).forEach(e =>{
+        e.addEventListener('change', checkChange)
+    })
 }
 
 function addM(prop, val){
     let html = ''
     let counter = -1;
     if(prop== 'game'){
-        glibrary['list'].push({"type":"game", "name": val[0]})
+        glibrary['list'].push({"type":"game", "name":val[0], "steam" : val[1], "origin" : val[2], "epic" : val[3], "battle" : val[4], "uplay" : val[5]})
     }
     localStorage.setItem('glibrary', JSON.stringify(glibrary))
     glibrary['list'].forEach(e =>{
         counter++
-
         if(e.type == 'game'){
             html += createItem('row', e , counter)
         }
     })
     if(prop == 'form'){
-        html += createForm('row', glibrary['list'].length, 'm')
+        html += createForm('row', glibrary['list'].length, 'm','',true)
     }
     document.querySelector('#mItems').innerHTML = html
+    document.querySelectorAll(`input[type="checkbox"]`).forEach(e =>{
+        e.addEventListener('click', checkChange)
+    })
+}
+
+function filterItems(e){
+    let input = document.querySelector(`#${e.id}`)
+    let filter = input.value.toLowerCase()
+    let filterItems = document.querySelectorAll('.filteri')
+    let filterSelected = ''
+    
+    if(e.id == 'search'){
+        filterSelected = document.querySelector('#gameTypes').value.toLowerCase()
+    }
+    else{
+        filterSelected = document.querySelector('#mgameTypes').value.toLowerCase()
+    }
+
+    filterItems.forEach(e =>{
+        let filterGame = e.querySelectorAll('#launchers img')
+        if(filter.length == 0){
+            e.style.display = "";
+        }
+        else if(e.querySelector('h2').innerHTML.toLowerCase().includes(filter)){
+            if(filterSelected == 'filter'){
+                e.style.display = "";
+            }
+            else if(filterSelected == 'steam' && filterGame[0].id == "imgTrue"){
+                e.style.display = "";
+            }
+            else if(filterSelected == 'origin' && filterGame[1].id == "imgTrue"){
+                e.style.display = "";
+            }
+            else if(filterSelected == 'epic' && filterGame[2].id == "imgTrue"){
+                e.style.display = "";
+            }
+            else if(filterSelected == 'battle.net' && filterGame[3].id == "imgTrue"){
+                e.style.display = "";
+            }
+            else if(filterSelected == 'uplay' && filterGame[4].id == "imgTrue"){
+                e.style.display = "";
+            }
+            else{
+                e.style.display = "none";
+            }
+        }
+        else{
+            e.style.display = "none";
+        }
+    })
+}
+
+function msearch(){
+    let html = 
+    '<div id="myModal" class="popUp ">'+
+        '<div class="py-2 bg-dark w-100">'+
+        '<form class="form-inline justify-content-around">'+
+        '<input class="ml-4 py-1" type="text" class="form-control" style="width: 50%;" id="msearch" onkeyup="filterItems(this)"/>'+
+            '<select class="custom-select w-25" style="max-width: 120px;" id="mgameTypes">'+
+            '<option selected>Filter</option>'+
+            '<option>Steam</option>'+
+            '<option>Origin</option>'+
+            '<option>Epic</option>'+
+            '<option>Battle.Net</option>'+
+            '<option>Uplay</option>'+
+            '</select>'+
+        '</form>'+
+        '</div>'+
+    '</div>'
+
+    document.querySelector('.mnavbar').insertAdjacentHTML('afterbegin', html)
+    modal = document.querySelector('#myModal')
+}
+
+function removeUp(){
+    document.querySelector('#myModal').remove()
+}
+
+var modal = ''
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.remove()
+  }
 }
     
 
