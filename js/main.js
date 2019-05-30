@@ -29,37 +29,36 @@ function createForm(item,i,type,data,edit) {
 
     let html = ''
     if(edit){
-        html += `<div id="item${i}" class="m-2 px-3 bg-dark">`
+        html += `<div id="item${i}" class="row-4 m-2 px-3 bg-dark">`
     }
     html += 
-    `<article class="${item}-4 p-2 bg-dark text-white" >`+
+    `<article class=" py-2 bg-dark text-white" >`+
         `<input type="text" class="form-control" value="${data}" id="name"/>`+
-        '<div class="d-flex justify-content-around  m-0 my-2">'+
-            '<div class="form-check form-check-inline">'+
+        '<div class="d-flex justify-content-around m-0 my-2">'+
+            '<div class="form-check  p-0 mx-1">'+
                 '<input type="checkbox" id="steam" value="false">'+
                 '<label class="" for="steam"></label>'+
             '</div>'+
-            '<div class="form-check form-check-inline">'+
+            '<div class="form-check p-0 mx-1">'+
                 '<input type="checkbox" id="origin" value="false">'+
                 '<label class="" for="origin"></label>'+
             '</div>'+
-            '<div class="form-check form-check-inline">'+
+            '<div class="form-check  p-0 mx-1">'+
                 '<input type="checkbox" id="epic" value="false">'+
                 '<label class="" for="epic"></label>'+
             '</div>'+
-            '<div class="form-check form-check-inline">'+
+            '<div class="form-check  p-0 mx-1">'+
                 '<input type="checkbox" id="battle" value="false">'+
                 '<label class="" for="battle"></label>'+
             '</div>'+
-            '<div class="form-check form-check-inline">'+
+            '<div class="form-check  p-0 mx-1">'+
                 '<input type="checkbox" id="uplay" value="false">'+
                 '<label class="" for="uplay"></label>'+
             '</div>'+
         '</div>'+
         '<div class="d-flex justify-content-around">'+
-            `<input class="btn btn-primary" type="button" value="Delete" id"delete" onclick="delGame('item${i}')">`+
-            '<input class="btn btn-primary" type="button" value="Favorite">'+
-            `<input class="btn btn-primary" type="button" value="Apply" id="apply" onclick="${type}populate('item${i}')">`+
+            `<input class="btn" type="button" value="Delete" id"delete" onclick="delGame('item${i}')">`+
+            `<input class="btn" type="button" value="Apply" id="apply" onclick="${type}populate('item${i}')">`+
         '</div>'+
 '</article>'
     if(edit){
@@ -68,13 +67,26 @@ function createForm(item,i,type,data,edit) {
     return html
 }
 
+function confirmation(){
+    html = 
+    '<div id="myModal" class="confirmation">'+
+    '<p class="w-100">Are you sure?</p>'
+    '<div class="container w-50">'+
+    '<button>Yes</button'+
+    '<button>No</button'+
+    '</div>'+
+    '</div>'
+
+    document.querySelector('body').insertAdjacentHTML('afterbegin', html)
+    modal = document.querySelector('#myModal')
+}
+
 function delGame(idDel){
     let num = idDel.slice(4)
     glibrary['list'].splice(num, 1)
     addD()
     addM()
 
-    //add
 }
 
 function edit(idEdit){
@@ -129,46 +141,47 @@ function dpopulate(formVal){
 function createItem(item, val, i) { 
     let oppacityVal = []
     let html = ''
-    html += `<div id="item${i}" class="m-2 px-3 bg-dark filteri">`
+    html += `<div id="item${i}" class="${item}-4 m-2 px-3 bg-dark filteri" style="min-width:250px;">`
     html += 
-    `<article class="${item}-4 py-2 bg-dark text-white" >`+
-        `<div class="d-flex align-items-center" style="margin-bottom: 10px"><img onclick="edit('item${i}')" src="images/SVG/brandIcon.svg" width="70" height="70" style="margin-right: 5px"><h2>${val['name']}</h2></div>`+
+    `<article class=" py-2 bg-dark text-white" >`+
+        `<div class="d-flex align-items-center" id="fav" style="margin-bottom: 10px"><img onclick="edit('item${i}')" src="images/SVG/brandIcon.svg" width="70" height="70" style="margin-right: 5px"><h2>${val['name']}</h2></div>`+
         '<div class="d-flex justify-content-around" id="launchers">'
+
     if(val["steam"] == 'true'){
-        html += `<img src="images/SVG/steam.svg" width="40" height="40" id="imgTrue">`      
+        html += `<img src="images/SVG/steam.svg" width="40" height="40" id="imgTrue" class="mx-1">`      
     }
     else{
-        html += `<img src="images/SVG/steam.svg" width="40" height="40" id="imgFalse">`      
+        html += `<img src="images/SVG/steam.svg" width="40" height="40" id="imgFalse" class="mx-1">`      
 
     }
 
     if(val["origin"] == 'true'){
-        html += `<img src="images/SVG/origin.svg" width="40" height="40" id="imgTrue">`      
+        html += `<img src="images/SVG/origin.svg" width="40" height="40" id="imgTrue" class="mx-1">`      
     }
     else{
-        html += `<img src="images/SVG/origin.svg" width="40" height="40" id="imgFalse">`      
+        html += `<img src="images/SVG/origin.svg" width="40" height="40" id="imgFalse" class="mx-1">`      
 
     }
     if(val["epic"] == 'true'){
-        html += `<img src="images/SVG/epic.svg" width="40" height="40" id="imgTrue">` 
+        html += `<img src="images/SVG/epic.svg" width="40" height="40" id="imgTrue" class="mx-1">` 
     }
 
     else{
-        html += `<img src="images/SVG/epic.svg" width="40" height="40" id="imgFalse">`
+        html += `<img src="images/SVG/epic.svg" width="40" height="40" id="imgFalse" class="mx-1">`
 
     }
     if(val["battle"] == 'true'){
-        html += `<img src="images/SVG/battlenet.svg" width="40" height="40" id="imgTrue">`
+        html += `<img src="images/SVG/battlenet.svg" width="40" height="40" id="imgTrue" class="mx-1">`
     }
     else{
-        html += `<img src="images/SVG/battlenet.svg" width="40" height="40" id="imgFalse">`
+        html += `<img src="images/SVG/battlenet.svg" width="40" height="40" id="imgFalse" class="mx-1">`
 
     }
     if(val["uplay"] == 'true'){
-        html += `<img src="images/SVG/uplay.svg" width="40" height="40" id="imgTrue">`   
+        html += `<img src="images/SVG/uplay.svg" width="40" height="40" id="imgTrue" class="mx-1">`   
     }
     else{
-        html += `<img src="images/SVG/uplay.svg" width="40" height="40" id="imgFalse">`
+        html += `<img src="images/SVG/uplay.svg" width="40" height="40" id="imgFalse" class="mx-1">`
 
     }
 
@@ -199,7 +212,7 @@ function addD(prop, val){
     })
 
     if(prop == 'form'){
-        html += createForm('row', glibrary['list'].length , 'd','' , true)
+        html += createForm('col', glibrary['list'].length , 'd','' , true)
     }
 
     document.querySelector('#dItems').innerHTML = html
@@ -301,6 +314,33 @@ function msearch(){
 
 function removeUp(){
     document.querySelector('#myModal').remove()
+}
+
+function profile(){
+    html = '<div id="myModal" class="profile">'+
+    '<div class="container bg-dark" id="pcontent">'+
+    '<form class="form-inline justify-content-around">'+
+    '<input class="w-75 my-2" type="text" placeholder="Username"/>'+
+    '<input class="w-75 my-2" type="text" placeholder="Password"/>'+
+    '<button type="button" class="w-50 btn">Save Details</button>'+
+    '</form>'+
+    '<div class="w-50 mx-auto mt-5">'+
+    '<button class="w-100 my-2 p-3 btn" onclick="clearlib()" style="font-size: 25px">Delete Library</button>'+
+    '<button class="w-100 my-2 p-3 btn" style="font-size: 25px">Delete Account</button>'+
+    '</div>'+
+    '</div>'+
+'</div>'
+
+document.querySelector('body').insertAdjacentHTML('afterbegin', html)
+modal = document.querySelector('#myModal')
+}
+
+function clearlib(){
+    let j = {"list":[]}    
+    localStorage.setItem('glibrary', JSON.stringify(j))
+    glibrary = JSON.parse(localStorage.getItem('glibrary'))
+    addD()
+    addM() 
 }
 
 var modal = ''
