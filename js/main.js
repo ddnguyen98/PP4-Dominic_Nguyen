@@ -317,22 +317,59 @@ function removeUp(){
 }
 
 function profile(){
+    values = JSON.parse(localStorage.getItem('udetails'))
+
     html = '<div id="myModal" class="profile">'+
     '<div class="container bg-dark" id="pcontent">'+
     '<form class="form-inline justify-content-around">'+
-    '<input class="w-75 my-2" type="text" placeholder="Username"/>'+
-    '<input class="w-75 my-2" type="text" placeholder="Password"/>'+
-    '<button type="button" class="w-50 btn">Save Details</button>'+
+    `<input class="w-75 my-2" type="text" id="uname" value="${values[0]}"/>`+
+    `<input class="w-75 my-2" type="text" id="pword"value="${values[1]}"/>`+
+    '<button type="button" onclick="addUser()"class="w-50 btn">Save Details</button>'+
     '</form>'+
     '<div class="w-50 mx-auto mt-5">'+
     '<button class="w-100 my-2 p-3 btn" onclick="clearlib()" style="font-size: 25px">Delete Library</button>'+
-    '<button class="w-100 my-2 p-3 btn" style="font-size: 25px">Delete Account</button>'+
+    '<button class="w-100 my-2 p-3 btn" onclick="delAccount()" style="font-size: 25px">Delete Account</button>'+
     '</div>'+
     '</div>'+
 '</div>'
 
 document.querySelector('body').insertAdjacentHTML('afterbegin', html)
 modal = document.querySelector('#myModal')
+}
+
+function savedetails(){
+    let info = [document.querySelector('#uname').value, document.querySelector('#pword').value]
+    localStorage.setItem('udetails', JSON.stringify(info))
+}
+
+function delAccount(){
+    let j = {"list":[]}    
+    localStorage.setItem('glibrary', JSON.stringify(j))
+
+    let u = {"udetails":[]}
+    localStorage.setItem('udetails', JSON.stringify(u))
+
+    location.reload(true)
+
+}
+
+function checkUser(){
+    values = JSON.parse(localStorage.getItem('udetails'))
+
+    if(!(document.querySelector('#uname').value == values[0]) || !(document.querySelector('#pword').value == values[1])){
+
+        html = '<div id="myModal" class="profile">'+
+        '<div class="container bg-dark text-center" id="pcontent">'+
+        '<p>Incorrect username or password</p>'+
+        '</div>'+
+        '</div>'
+
+    document.querySelector('body').insertAdjacentHTML('afterbegin', html)
+    modal = document.querySelector('#myModal')
+    }
+    else{
+        showContent()
+    }
 }
 
 function clearlib(){
@@ -343,8 +380,98 @@ function clearlib(){
     addM() 
 }
 
-var modal = ''
+function showContent(){
+    if(document.querySelector('#uname').value.length == 0 || document.querySelector('#pword').value.length == 0){
+        html = '<div id="myModal" class="profile">'+
+        '<div class="container bg-dark text-center" id="pcontent">'+
+        '<p>Make sure you entered something</p>'
+        '</div>'+
+    '</div>'
+    document.querySelector('body').insertAdjacentHTML('afterbegin', html)
+    modal = document.querySelector('#myModal')
+    }
+    else{
+        document.querySelector('#signin').style.display = 'none';
+        document.querySelector('#signin').style.visibility = 'hidden';
+        document.querySelector('#fcontent').style.display = 'block';
+        document.querySelector('#fcontent').style.visibility = 'visible';
+    }
 
+}
+
+function tourContent(){
+    let html =
+    
+    '<div id="carouselExampleControls" class="carousel slide mx-auto mb-5" data-ride="carousel">'+
+    '<div class="carousel-inner ">'+
+    '<div class="carousel-item active">'+
+      '<img class="w-100" src="./images/lib.png" alt="First slide">'+
+    '</div>'+
+    '<div class="carousel-item ">'+
+      '<img class="w-100" src="./images/edit.png" alt="Second slide">'+
+    '</div>'+
+    '<div class="carousel-item">'+
+      '<img class="w-100" src="./images/add.png" alt="Third slide">'+
+    '</div>'+
+    '<div class="carousel-item">'+
+    '<img class="w-100" src="./images/filter.png" alt="Fourth slide">'+
+  '</div>'+
+  '</div>'+
+  '<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">'+
+    '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
+    '<span class="sr-only">Previous</span>'+
+  '</a>'+
+  '<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">'+
+    '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
+    '<span class="sr-only">Next</span>'+
+    '</a>'+
+    '</div>'+
+    '<div class="w-100 text-center" id="tourcontent">'+
+    '<h2 class="text-center mb-5">Features avaliable to you</h2>'+
+    '<ul class="row p-0 ">'+
+    '<li class="col-md-4 p-4"><h3>Add games</h3><p>Manage a large online game collection to combine games from all your launchers into one simple place</p></li>'+
+    '<li class="col-md-4 p-4"><h3>Edit</h3><p>Edit them with ease by clicking on the logo with your item in it to quickly change the title and games launchers afiliated with it.</p></li>'+
+    '<li class="col-md-4 p-4"><h3>Search</h3><p>Search by name along with by game type to find the perfect game you are looking for to enjoy a relaxing afternoon.</li></p>'+
+    '<li class="col-md-4 p-4"><h3>Portable</h3><p>Manage games easily through mobile as well and launch them while you make your way home.</li></p>'+
+    '<li class="col-md-4 p-4"><h3>Fast</h3><p>Quick and easy to start up your game with a single click of a button.</li></p>'+
+    '<li class="col-md-4 p-4"><h3>Free!</h3><p>This is all for free as well. Sign up today to start your new massive game collection!</li></p>'+
+    '</ul>'+
+    '<button class="btn w-75" onclick="signup()">Sign Up!</button>'+
+    '</div>'
+    document.querySelector("#splash").innerHTML = html
+}
+
+function signup(){
+    html = '<h2 class="text-center w-100">Sign up below to start your Unilaunchers Experience.</h2>'+
+    '<form class="form-inline justify-content-around w-75 mx-auto" id="signup">'+
+      '<input class="w-100 my-2" type="text" placeholder="Username"id="uname"/>'+
+      '<input class="w-100 my-s2" type="text" placeholder="Password"id="pword"/>'+
+      '<button type="button" class="w-100 btn" onclick="addUser()">Sign Up</button>'+
+    '</form>'
+
+    document.querySelector("#splash").innerHTML = html
+}
+
+function addUser(){
+    if(document.querySelector('#uname').value.length == 0 || document.querySelector('#pword').value.length == 0){
+        html = '<div id="myModal" class="profile">'+
+        '<div class="container bg-dark text-center" id="pcontent">'+
+        '<p>Make sure you entered something</p>'+
+        '</div>'+
+    '</div>'
+    document.querySelector('body').insertAdjacentHTML('afterbegin', html)
+    modal = document.querySelector('#myModal')
+    }
+    else{
+        let info = [document.querySelector('#uname').value, document.querySelector('#pword').value]
+        localStorage.setItem('udetails', JSON.stringify(info))
+        showContent()
+    } 
+
+}
+
+
+var modal = ''
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.remove()

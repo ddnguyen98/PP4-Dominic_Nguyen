@@ -145,7 +145,77 @@
     border-color:  #566161;
   }
 
-  #id{
-    position: relative;
+  #signin{
+    background: url('../images/file.png') repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+  #signin button{
+    background-color: #2D3A3A;
+  }
+  @media (max-width: 767px) {
+    #sign,#tour{
+      width: 100%!important
+    }
+
+    #sign{
+      border-top: solid black 1px;
+    }
+  }
+  @media (min-width: 767px) {
+    #sign,#tour{
+      width: 50%!important
+    }
+    #sign{
+      border-left: solid black 1px;
+    }
+    #sign form{
+      margin-top: 50px;
+    }
+  }
+  #splash{
+    width: 90%!important
+  }
+  #splash p{
+    color: white;
+    font-size: 20px;
+  }
+  #splash h2 {
+    color: white;
+  }
+  #splash li{
+    color: white;
+    text-align: left;
+    font-size: 20px;
+    padding: 5px;
   }
 
+  #splash{
+    padding: 20px;
+  }
+
+  #splash ul{
+    list-style-type: none;
+  }
+
+  #carouselExampleControls p{
+    color: black;
+  }
+
+  #pcontent p{
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  h3{
+    color: #87f5fb
+  }
+
+
+  #tourcontent button{
+    font-size: 30px;
+  }

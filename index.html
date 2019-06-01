@@ -10,74 +10,95 @@
   <link rel="stylesheet" href="css/mobile.css">
   <title>Bootstrap</title>
 </head>
-<body class="bodybg" >
-  <nav class="navbar navbar-dark bg-dark dnavbar">
-      <a class="navbar-brand" href="#">
-          <img src="images/SVG/brandIcon.svg" width="50" height="50" class="d-inline-block align-middle" alt="UniLaunchers Logo">
-          UniLaunchers
-        </a>
-    <form class="form-inline w-50 justify-content-center" style="min-width: 440px">
-        <button class="btn" type="button" id="dAddItem">Add item</button>
-        <input class="mx-2 py-1" type='text' class="form-control" style="width: 50%;" id="search" onkeyup="filterItems(this)"/>
-        <select class="custom-select w-25" style="max-width: 120px;" id="gameTypes">
-          <option selected>Filter</option>
-          <option>Steam</option>
-          <option>Origin</option>
-          <option>Epic</option>
-          <option>Battle.Net</option>
-          <option>Uplay</option>
-        </select>
-    </form>
-    <button class="btn" onclick="profile()" style="background: none; border: none; margin: 0">Profile</button>
-  </nav>
-  
-  <div class="container bg-white dcontent" style="height: 100vh">
-
-    <div class="row justify-content-center" id="dItems">
-      <div class="row justify-content-center" style="height: 100vh">
-          <div class="col-md-12 my-auto text-center">
-              Looks like your library is Empty. Add something to it.
+<body class="bodybg">
+  <div id="signin">
+        <div class="mt-2">
+          <img src="images/SVG/brandIcon.svg" width="200" height="200" class="mx-auto" alt="UniLaunchers Logo" style="display: block">
+          <h2 style="color: white; font-size: 45px; text-align: center;">UniLaunchers</h2>
+        </div>
+        <div class="row mx-auto w-75 " id="splash" style="background: #566161;">
+          <div id="tour" class="w-50 text-center p-4 mb-2">
+            <p class="text-left">Tour through a simple walk through of what UniLaunchers can do to help manage your games into a single game library</p>
+            <p class="text-left">Click below to see features that UniLaunchers does and whats the site is about</p>
+            <button type="button" class="w-50 btn" onclick="tourContent()">Tour</button>
           </div>
-      </div>
-    </div>
-
+          <div id="sign" class="w-50 p-4">
+              <p class="text-left">Sign in below if you have an existing account already.</p>
+            <form class="form-inline justify-content-around">
+              <input class="w-75 my-2" type="text" placeholder="Username" id="uname"/>
+              <input class="w-75 my-2" type="text" placeholder="Password" id="pword"/>
+              <button type="button" class="w-50 btn" onclick="checkUser()">Log In</button>
+            </form>
+          </div>
+        </div>
   </div>
 
-<div class="row mnavbar" style="height: 100vh">
-    <div class="col-3 pr-0" style="max-width: 70px">
-
-        <nav class="navbar bg-dark p-0 justify-content-center" id="mNavigation">
-          <button id="mbutton" class="btn p-0" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <img src="images/SVG/menu.svg" width="30px" height="30px">
-          </button>
-        </nav>
-        
-        <div class="collapse" id="navbarToggleExternalContent">
-          <div class="bg-dark d-flex flex-column justify-content-between" style='height: 100vh'>
-            <div style="visibility: hidden"></div>
-            <div class="d-flex flex-column ">
-              <button id="mAddItem"><img src="./images/SVG/add.svg" width="40px" height="40px"></button>
-              <button id="mSearch" onclick="msearch()"><img src="./images/SVG/search.svg" width="40px" height="40px"></button>
-              <button id="mProfile" onclick="profile()"><img src="./images/SVG/pofile.svg" width="40px" height="40px"></button>
-            </div>
-            <div>
-              
-            </div>
+  <div id="fcontent" style="display: none; visibility: hidden;">
+      <nav class="navbar navbar-dark bg-dark dnavbar">
+          <a class="navbar-brand" href="#">
+              <img src="images/SVG/brandIcon.svg" width="50" height="50" class="d-inline-block align-middle" alt="UniLaunchers Logo">
+              UniLaunchers
+            </a>
+        <form class="form-inline w-50 justify-content-center" style="min-width: 440px">
+            <button class="btn" type="button" id="dAddItem">Add item</button>
+            <input class="mx-2 py-1" type='text' class="form-control" style="width: 50%;" id="search" onkeyup="filterItems(this)"/>
+            <select class="custom-select w-25" style="max-width: 120px;" id="gameTypes">
+              <option selected>Filter</option>
+              <option>Steam</option>
+              <option>Origin</option>
+              <option>Epic</option>
+              <option>Battle.Net</option>
+              <option>Uplay</option>
+            </select>
+        </form>
+        <button class="btn" onclick="profile()" style="background: none; border: none; margin: 0">Profile</button>
+      </nav>
+      
+      <div class="container bg-white dcontent" style="height: 100vh">
+    
+        <div class="row justify-content-center" id="dItems">
+          <div class="row justify-content-center" style="height: 100vh">
+              <div class="col-md-12 my-auto text-center">
+                  Looks like your library is Empty. Add something to it.
+              </div>
           </div>
-        </div>  
+        </div>
+    
       </div>
     
-      <div class="col-9 container p-0"style="height: 100vh" id="mItems">
-          <div class="container row h-100" >
-              <div class="col-md-12 my-auto text-center">
-                Looks like your library is Empty. Add something to it.
+      <div class="row mnavbar" style="height: 100vh">
+        <div class="col-3 pr-0" style="max-width: 70px">
+    
+            <nav class="navbar bg-dark p-0 justify-content-center" id="mNavigation">
+              <button id="mbutton" class="btn p-0" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="images/SVG/menu.svg" width="30px" height="30px">
+              </button>
+            </nav>
+            
+            <div class="collapse" id="navbarToggleExternalContent">
+              <div class="bg-dark d-flex flex-column justify-content-between" style='height: 100vh'>
+                <div style="visibility: hidden"></div>
+                <div class="d-flex flex-column ">
+                  <button id="mAddItem"><img src="./images/SVG/add.svg" width="40px" height="40px"></button>
+                  <button id="mSearch" onclick="msearch()"><img src="./images/SVG/search.svg" width="40px" height="40px"></button>
+                  <button id="mProfile" onclick="profile()"><img src="./images/SVG/pofile.svg" width="40px" height="40px"></button>
+                </div>
+                <div>
+                  
+                </div>
+              </div>
+            </div>  
+          </div>
+        
+          <div class="col-9 container p-0"style="height: 100vh" id="mItems">
+              <div class="container row h-100" >
+                  <div class="col-md-12 my-auto text-center">
+                    Looks like your library is Empty. Add something to it.
+              </div>
+          </div>
           </div>
       </div>
-      </div>
-</div>
-
-
-
+  </div>
 
 
   <script src="js/jquery.slim.min.js"></script>
