@@ -13,6 +13,9 @@ else{
     let j = {"list":[]}    
     localStorage.setItem('glibrary', JSON.stringify(j))
     glibrary = JSON.parse(localStorage.getItem('glibrary'))
+
+    let u = {"udetails":[]}
+    localStorage.setItem('udetails', JSON.stringify(u))
 }
 
 document.querySelector('#dAddItem').addEventListener('click', e =>{
